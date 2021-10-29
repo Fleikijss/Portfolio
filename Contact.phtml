@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Jānis Bunks</title>
+    <link rel='stylesheet' href="style.css">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="shortcut icon" href="#">
+</head>
+<body>
+    <header class="main-header">
+        <img class="logo" src="images/science.png" alt="logo">
+    </header>
+    <nav class="main-menu">
+        <a href="index.html"><span class="text">Home</span></a>
+        <a href="Work.html"><span class="text">Work</span></a>
+        <a href="Hobbies.html"><span class="text">Hobbies</span></a>
+        <a href="Contact.phtml"><span class="active text">Contact</span></a>
+    </nav>
+
+    <main class="main-content">
+        <div class="contact-header-info">
+            <div class="wrapped contact-info">
+                <h1>Contacts</h1>
+                <span><h3><i>Janis Bunks</i></h3></span>
+                <span><b>Telephone:</b> <i>+371 29382387</i></span>
+                <span><b>E-mail:</b> <i>bunksjanis@gmail.com</i></span>
+            </div>
+        </div>
+        <div class="wrapped middle-content">
+            <form method="post" class="contact-form">
+                <label class="input-label" for="name">
+                    <input class="input-field" placeholder=" " type="text" id="name">
+                    <span class="field-label">Name</span>
+                </label>
+
+                <label class="input-label" for="surname">
+                    <input class="input-field" placeholder=" " type="text" id="surname">
+                    <span class="field-label">Surname</span>
+                </label>
+
+                <label class="input-label" for="email">
+                    <input class="input-field" placeholder=" " type="text" id="email">
+                    <span class="field-label">E-mail</span>
+                </label>
+
+                <label class="input-label" for="subject">
+                    <input class="input-field" placeholder=" " type="text" id="subject">
+                    <span class="field-label">Subject</span>
+                </label>
+
+                <label class="input-label textarea" for="message">
+                    <textarea cols="30" rows="10" class="input-field" placeholder=" " type="text" id="message"></textarea>
+                    <span class="field-label">Message</span>
+                </label>
+
+                <button type="submit" class="btn primary">Send</button>
+            </form>
+        
+            <h2>Feel free to leave a comment down: </h2>
+            <form action="addComments.php" class="contact-form" method="post">
+                <label class="input-label" for="Name">
+                    <input name="comment_name" class="input-field comment__name" placeholder=" " type="text" id="name">
+                    <span class="field-label">Name</span>
+                </label>
+
+                <label for="" class="input-label textarea" for="message">
+                    <textarea name="comment_description" cols="30" rows="10" class="input-field comment__description" placeholder=" " type="text" id="message"></textarea>
+                    <span class="field-label">Message</span>
+                </label>
+                <button type="submit" class="btn primary">Send</button>
+            </form>
+        </div>
+        <?php
+
+include_once(__DIR__ . '/config.php');
+include_once(PRIVATE_DIR . '/db.php');           
+
+$comments = new DB('comments');
+$commententities = $comments->getAll();
+    if (isset($commententities['entities'])) :
+        foreach ($commententities['entities'] as $comments) : ?> 
+            <div class="commentbox">
+                <div class="commentbox_title">
+                <h2 class="commentbox_head"><?= $comments['name'] ?></h2>
+                <p class="commentbox_head"><?= $comments['created_at']?></p>
+                </div>
+                <div class="commentbox_text">
+                <p class="commentbox_bot"><?= $comments['comment'] ?></p>
+                </div>
+            </div>
+
+
+        <?php endforeach ?>
+        <?php endif ?>
+        <div class="column-block">
+            <a class="block" href="Work.html">
+                <img src="images/block1.png" alt="Knowledge">
+                <span class="block__text">Work</span>
+            </a>
+    
+            <a class="block" href="Hobbies.html">
+                <img src="images/block2.png" alt="Hobbies">
+                <span class="block__text">Hobbies and Interests</span>
+            </a>
+    
+            <a class="block" href="Contact.phtml">
+                <img src="images/block3.png" alt="Contact">
+                <span class="block__text">Contacts</span>
+            </a>
+        </div>
+    </main>
+    </body>
+</html>
